@@ -11,19 +11,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140217111201) do
+ActiveRecord::Schema.define(version: 20140217121937) do
 
   create_table "albums", force: true do |t|
     t.string   "content_provider"
-    t.string   "title"
-    t.string   "artist"
-    t.string   "youtube_hash"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "naver_albums", force: true do |t|
-    t.string   "content_provider", default: "N"
     t.string   "title"
     t.string   "artist"
     t.string   "youtube_hash"
