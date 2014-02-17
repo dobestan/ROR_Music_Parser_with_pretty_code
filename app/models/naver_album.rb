@@ -26,11 +26,11 @@ class NaverAlbum < Album
   end
 
   def self.parse_title(source)
-    target.css(".name").css("._title")[0]["title"]
+    source.css(".name").css("._title")[0]["title"]
   end
 
   def self.parse_artist(source)
-    target.css("tbody td ._artist").css("._artist")[0]["title"]
+    source.css("tbody td ._artist").css("._artist")[0]["title"]
   end
 
 end
