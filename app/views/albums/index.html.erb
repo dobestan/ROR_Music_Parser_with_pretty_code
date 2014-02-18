@@ -1,0 +1,71 @@
+<h1>albums#index</h1>
+
+<% # index controller has two concern %>
+<% #    - provide custom music search %>
+<% #    - show all albums %>
+
+<% # this is alternative for albums#new  %>
+<% # this is more user-friendly interface  %>
+
+
+<% # using form_tag instead of form_for %>
+<h2>Looking for other musics?</h2>
+<p>
+    <%= text_field_tag "custom_album[query]" %>
+    <button type="submit", onclick="new_custom_album()">SEARCH</button>
+</p>
+
+<% # custom search feature and showing result feature should be implemented by AJAX %>
+<% # using JSON for data transfer %>
+<div id="custom_album_result">
+</div>
+
+<div>
+     <iframe id="youtube_player" src="<%= get_youtube_embed_url @albums.first.youtube_hash %>" frameborder="0"></iframe>
+</div>
+
+
+<% # view not yet implemented %>
+
+<% # PROBLEM : rendering N iframe is so slow %>
+<% # HOW TO SOLVE : implement custom player with javascript %>
+<h2>HOT Albums</h2>
+<table>
+    <tr>
+        <th>C_provider</th>
+        <th>title</th>
+        <th>artist</th>
+        <th>play</th>
+    </tr>
+    <% @albums.each do |album| %>
+    <tr>
+        <td><%= album.content_provider %></td>
+        <td><%= album.title %></td>
+        <td><%= album.artist %></td>
+        <td><button id="<%= album.youtube_hash %>" type="submit" onclick="play_album('<%= album.youtube_hash %>')">play</button></td>
+    </tr>
+    <% end %>
+</table>
+
+
+<script type="text/javascript" charset="utf-8">
+    <% # Custom Music Player implemented by AJAX %>
+    function new_custom_album() {
+        $.ajax({ url: "<%= albums_path %>",
+                type: "post",
+                data: { custom_album_query: $("#custom_album_query").val() },
+
+                success: function(data) {
+                    var embed_url = "http://www.youtube.com/embed/" + data.youtube_hash + "?autoplay=1";
+                    var youtube_player = document.querySelector("iframe#youtube_player");
+                    youtube_player.src = embed_url
+                }
+        })
+    };
+
+    function play_album(youtube_hash) {
+        var youtube_player = document.querySelector("iframe#youtube_player");
+        var embed_url = "http://www.youtube.com/embed/" + youtube_hash + "?autoplay=1";
+        youtube_player.src = embed_url
+    }
+</script>

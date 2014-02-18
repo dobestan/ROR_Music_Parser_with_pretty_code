@@ -5,7 +5,7 @@ module AlbumsHelper
   THUMBNAIL_URL_WITHOUT_HASH = "http://i1.ytimg.com/vi/"
   THUMBNAIL_FILENAME = "mqdefault.jpg"
 
-  def get_youtube_search_url(title, artist)
+  def get_youtube_search_url(title = "", artist = "")
     # title(string), artist(string) -> search_url(string)
     URI.encode(SEARCH_URL_WITHOUT_QUERY + title.to_s + "+" + artist.to_s)
   end

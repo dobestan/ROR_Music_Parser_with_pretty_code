@@ -3,7 +3,7 @@ class DaumAlbumsController < AlbumsController
   
   def index
     # show all daum albums
-    @daum_albums = DaumAlbum.all
+    @daum_albums = DaumAlbum.where(content_provider: "D")
   end
 
   def show
