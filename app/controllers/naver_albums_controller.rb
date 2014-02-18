@@ -3,7 +3,7 @@ class NaverAlbumsController < AlbumsController
   
   def index
     # show all naver albums
-    @naver_albums = NaverAlbum.all
+    @naver_albums = NaverAlbum.where(content_provider: "N")
   end
 
   def show
