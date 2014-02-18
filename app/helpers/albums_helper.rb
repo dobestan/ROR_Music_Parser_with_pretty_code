@@ -24,4 +24,12 @@ module AlbumsHelper
     # hash(string) -> thumbnail_url(string)
     THUMBNAIL_URL_WITHOUT_HASH + hash.to_s + "/" + THUMBNAIL_FILENAME
   end
+
+  def get_content_provider_full_name(content_provider_short_name)
+    content_provider_full_name = case content_provider_short_name
+                                   when "N" then "Naver Music"
+                                   when "M" then "Melon Music"
+                                   when "D" then "Daum Music"
+                                 end
+  end
 end
