@@ -1,5 +1,8 @@
-class MelonAlbum < Album
-  # inherit from Album Model
+module MelonParser
+  extend Parser
+
+  extend Crawler
+  extend YoutubeHashParser
 
   def self.get_albums(url) #using class method
     @albums = Array.new(50){ Hash.new }
@@ -7,10 +10,10 @@ class MelonAlbum < Album
     # PROCESS 1 : Crawl from Naver
     # PROCESS 2 : Parse 
     get_albums_from_content_provider(@albums, crawl_from(url).css("tbody tr"))
-    
+
     # PROCESS 3 : Search and Crawl from Youtube
     # PROCESS 4 : Parse
-    get_albums_from_youtube(@albums)
+    YoutubeHashParser.get_albums_from_youtube(@albums)
   end
 
 

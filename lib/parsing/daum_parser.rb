@@ -1,5 +1,8 @@
-class DaumAlbum < Album
-  # inherit from Album Model
+module DaumParser
+  extend Parser
+
+  extend Crawler
+  extend YoutubeHashParser
 
   def self.get_albums(url) #using class method
     @albums = Array.new(50){ Hash.new }
@@ -10,7 +13,7 @@ class DaumAlbum < Album
     
     # PROCESS 3 : Search and Crawl from Youtube
     # PROCESS 4 : Parse
-    get_albums_from_youtube(@albums)
+    YoutubeHashParser.get_albums_from_youtube(@albums)
   end
 
 

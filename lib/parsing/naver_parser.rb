@@ -1,5 +1,8 @@
-class NaverAlbum < Album
-  # inherit from Album Model
+module NaverParser
+  extend Parser
+
+  extend Crawler
+  extend YoutubeHashParser
 
   def self.get_albums(url) #using class method
     @albums = Array.new(5){ Hash.new }
@@ -7,10 +10,10 @@ class NaverAlbum < Album
     # PROCESS 1 : Crawl from Naver
     # PROCESS 2 : Parse 
     get_albums_from_content_provider(@albums, crawl_from(url).css(".tm_section"))
-    
+
     # PROCESS 3 : Search and Crawl from Youtube
     # PROCESS 4 : Parse
-    get_albums_from_youtube(@albums)
+    YoutubeHashParser.get_albums_from_youtube(@albums)
   end
 
 
@@ -32,5 +35,4 @@ class NaverAlbum < Album
   def self.parse_artist(source)
     source.css("tbody td ._artist").css("._artist")[0]["title"]
   end
-
 end
